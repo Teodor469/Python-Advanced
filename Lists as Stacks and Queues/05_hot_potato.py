@@ -1,7 +1,7 @@
 from collections import deque
 
 names = deque(input().split())
-toss = int(input())
+toss = int(input()) - 1
 
 while len(names) > 1:
     names.rotate(-toss)
