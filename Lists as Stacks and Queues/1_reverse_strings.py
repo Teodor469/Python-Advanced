@@ -1,2 +1,4 @@
-a = input()
-print(a[::-1])
+a = list(input())
+
+while a:
+    print(a.pop(), end="")
