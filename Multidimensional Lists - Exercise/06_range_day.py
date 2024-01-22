@@ -63,7 +63,7 @@ for _ in range(int(input())):
             print(f"Traingin completed! All {targets} targets hit.")
             break
 
-if targets_hit > targets:
+if targets_hit < targets:
     print(f"Training not completed! {targets - targets_hit} targets left.")
 
 print(*targets_hit_positions, sep="\n")
