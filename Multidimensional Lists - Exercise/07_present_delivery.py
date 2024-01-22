@@ -1,10 +1,10 @@
-def eat_cookie(presents_left, nice_kids):
-    for coordinates in directions.values():
-        r = stanta_pos[0] + coordinates[0]
-        c = stanta_pos[1] + coordinates[1]
+def eat_cookie(presents_left: int, nice_kids: int):
+    for coordinates in directions.values():  # [(0, 1), (1, 0,), ...]
+        r = santa_pos[0] + coordinates[0]
+        c = santa_pos[1] + coordinates[1]
 
         if neighborhood[r][c].isalpha():
-            if neighborhood[r][c] == 'V':
+            if neighborhood[r][c] == "V":
                 nice_kids += 1
 
             neighborhood[r][c] = "-"
@@ -20,16 +20,16 @@ presents = int(input())
 size = int(input())
 
 neighborhood = []
-stanta_pos = []
+santa_pos = []
 
 total_nice_kids = 0
 nice_kids_visited = 0
 
 directions = {
-    "up":(-1, 0),
-    "down":(1, 0),
-    "left":(0, -1),
-    "right":(0, 1),
+    "up": (-1, 0),
+    "down": (1, 0),
+    "left": (0, -1),
+    "right": (0, 1),
 }
 
 for row in range(size):
@@ -37,36 +37,35 @@ for row in range(size):
     neighborhood.append(line)
 
     if "S" in line:
-        stanta_pos = [row, line.index("S")]
-        neighborhood[row][stanta_pos[1]] = "-"
+        santa_pos = [row, line.index("S")]
+        neighborhood[row][santa_pos[1]] = "-"
 
     total_nice_kids += line.count("V")
 
-
-command = int(input())
+command = input()
 
 while command != "Christmas morning":
-    stanta_pos = [
-        stanta_pos[0] + directions[command[0]],
-        stanta_pos[1] + directions[command[1]]
+    santa_pos = [
+        santa_pos[0] + directions[command][0],
+        santa_pos[1] + directions[command][1]
     ]
 
-    house = neighborhood[stanta_pos[0]][stanta_pos[1]]
+    house = neighborhood[santa_pos[0]][santa_pos[1]]
 
     if house == "V":
         nice_kids_visited += 1
         presents -= 1
     elif house == "C":
         presents, nice_kids_visited = eat_cookie(presents, nice_kids_visited)
-    
-    neighborhood[stanta_pos[0]][stanta_pos[1]] = "-"
+
+    neighborhood[santa_pos[0]][santa_pos[1]] = "-"
 
     if not presents or nice_kids_visited == total_nice_kids:
         break
 
     command = input()
 
-neighborhood[stanta_pos[0]][stanta_pos[1]] = "S"
+neighborhood[santa_pos[0]][santa_pos[1]] = "S"
 
 if not presents and nice_kids_visited < total_nice_kids:
     print("Santa ran out of presents!")
