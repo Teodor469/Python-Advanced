@@ -1,3 +1,6 @@
+from functools import reduce
+
+
 def operate(operator, *nums):
     result = nums[0]
 
@@ -15,3 +18,14 @@ def operate(operator, *nums):
 
 print(operate("+", 1, 2, 3))
 print(operate("*", 3, 4))
+
+
+def operate(operator, *args):
+    if operator == '+':
+        return reduce(lambda x, y: x+y, args)
+    elif operator == '-':
+        return reduce(lambda x, y: x-y, args)
+    elif operator == '*':
+        return reduce(lambda x, y: x*y, args)
+    elif operator == '/':
+        return reduce(lambda x, y: x/y, args)
