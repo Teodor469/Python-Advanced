@@ -4,4 +4,5 @@ def sorting_cheeses(**kwargs):
     for cheese_name, quantity in sorted_result:
         result += cheese_name + "\n"
         for q in sorted(quantity, reverse=True):
-            result += quantity + "\n"
+            result += f"{q}\n"
+    return result
