@@ -3,7 +3,7 @@
 
 
 # correct
-def recursive_power(number, power):
+def recursive_power(number, power) -> int:
     if power == 0:
         return 1
     else:
