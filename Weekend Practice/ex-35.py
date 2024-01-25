@@ -1,4 +1,4 @@
-def is_palindrome(s):
+def palindrome(s):
     def clean_string(s):
         return ''.join(char.lower() for char in s if char.isalnum())
 
@@ -9,12 +9,12 @@ def is_palindrome(s):
         return True
     # Recursive case: check if the first and last characters are equal, then check the rest
     elif cleaned_s[0] == cleaned_s[-1]:
-        return is_palindrome(cleaned_s[1:-1])
+        return palindrome(cleaned_s[1:-1])
     else:
         return False
 
 string1 = "level"
 string2 = "A man, a plan, a canal: Panama"
 
-print(f'Is "{string1}" a palindrome? {is_palindrome(string1)}')
-print(f'Is "{string2}" a palindrome? {is_palindrome(string2)}')
+print(f'Is "{string1}" a palindrome? {palindrome(string1)}')
+print(f'Is "{string2}" a palindrome? {palindrome(string2)}')
