@@ -17,5 +17,5 @@ while worms and holes:
             worms.append(worm)
 
 print(f"Matches: {matches}" if matches > 0 else "There are no matches.")
-print(f"Worms left: {' '.join(map(str, worms))}" if worms else "Worms left: none")
-print(f"Holes left: {' '.join(map(str, holes))}" if holes else "Holes left: none")
+print(f"Worms left: {', '.join(map(str, worms))}" if worms else "Worms left: none")
+print(f"Holes left: {', '.join(map(str, holes))}" if holes else "Holes left: none")
