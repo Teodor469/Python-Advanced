@@ -1,0 +1,17 @@
+.css
+- - - style.css
+.html
+- - - index.html
+.js
+- - - main.js
+.py
+- - - 01_even_lines.py
+- - - 02_line_numbers.py
+- - - 03_file_manipulator.py
+- - - 04_directoy_traversal.py
+- - - main.py
+.ts
+- - - main.ts
+.txt
+- - - output_2.txt
+- - - text.txt
