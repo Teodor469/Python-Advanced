@@ -1,60 +1,41 @@
-def is_valid(value, max_value):
-    return 0 <= value < max_value
+#DEFINING THE VARIABLES
+
+rows, cols = [int(el) for el in input().split()]
+
+matrix = []
+
+directions = {
+    "up":(-1, 0),
+    "down":(1, 0),
+    "left":(0, -1),
+    "right":(0, 1),
+}
+
+pizza_boy_row = 0
+pizza_boy_col = 0
+
+#START OF LOGIC
+
+for i in range(rows): #REPRESENTS: every row in the matrix  "i"
+    rows_data = [el for el in input().split()]
+    matrix.append(rows_data)
+    if 'B' in rows_data:
+        pizza_boy_row = i # is equal to the relative row in which the letter is found
+        pizza_boy_col = rows_data.index('B') # finds the index on which the element is on and assigns the col value relatively
 
 
-def next_move(command, current_row, current_col):
-    if command == 'up' and is_valid(current_row-1, rows):
-        return current_row-1, current_col
-    if command == 'down' and is_valid(current_row+1, rows):
-        return current_row+1, current_col
-    if command == 'left' and is_valid(current_col-1, cols):
-        return current_row, current_col-1
-    if command == 'right' and is_valid(current_col+1, cols):
-        return current_row, current_col+1
-    return None, None
+command = input()
 
+while True:
+    if command in directions:
+        delta_row, delta_col = directions[command] #Taking the value from the command and assigning to these variables
+        new_row = pizza_boy_row + delta_row
+        new_col = pizza_boy_col + delta_col
 
-rows, cols = [int(x) for x in input().split(' ')]
-field = []
-start_row, start_col = None, None
-boy_row, boy_col = None, None
-line = ' '
+    if 0 <= new_row < len(matrix) and 0 <= new_col < len(matrix[0]):
+            matrix[gambler_row][gambler_col] = '-'
+            gambler_row = new_row
+            gambler_col = new_col
+            current_position = matrix[gambler_row][gambler_col]
 
-for r in range(rows):
-    row = list(input())
-    field.append(row)
-    if 'B' in row:
-        boy_row = r
-        boy_col = row.index('B')
-        start_row = boy_row
-        start_col = boy_col
-
-while line:
-    line = input()
-    next_row, next_col = next_move(line, boy_row, boy_col)
-    if next_row is None or next_col is None:
-        print('The delivery is late. Order is canceled.')
-        field[start_row][start_col] = ' '
-        break
-    if field[next_row][next_col] == '*':
-        continue
-    if field[next_row][next_col] == 'A':
-        field[boy_row][boy_col] = '.'
-        boy_row, boy_col = next_row, next_col
-        field[boy_row][boy_col] = 'P'
-        print("Pizza is delivered on time! Next order...")
-        field[start_row][start_col] = 'B'
-        break
-    if field[next_row][next_col] == 'P':
-        field[boy_row][boy_col] = '.'
-        boy_row, boy_col = next_row, next_col
-        field[next_row][next_col] = 'R'
-        print("Pizza is collected. 10 minutes for delivery.")
-        continue
-    if not field[boy_row][boy_col] == 'R':
-        field[boy_row][boy_col] = '.'
-    boy_row, boy_col = next_row, next_col
-    field[boy_row][boy_col] = '.'
-
-for row in field:
-    print(''.join(row))
+    command = input()
