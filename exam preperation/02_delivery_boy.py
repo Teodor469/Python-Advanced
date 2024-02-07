@@ -1,5 +1,3 @@
-#DEFINING THE VARIABLES
-
 rows, cols = [int(el) for el in input().split()]
 
 matrix = []
@@ -13,29 +11,49 @@ directions = {
 
 pizza_boy_row = 0
 pizza_boy_col = 0
+start_position = None
 
-#START OF LOGIC
-
-for i in range(rows): #REPRESENTS: every row in the matrix  "i"
-    rows_data = [el for el in input().split()]
+for i in range(rows):
+    rows_data = list(input())
     matrix.append(rows_data)
     if 'B' in rows_data:
-        pizza_boy_row = i # is equal to the relative row in which the letter is found
-        pizza_boy_col = rows_data.index('B') # finds the index on which the element is on and assigns the col value relatively
-
+        pizza_boy_row = i
+        pizza_boy_col = rows_data.index('B')
+        start_position = (pizza_boy_row, pizza_boy_col)
 
 command = input()
 
 while True:
     if command in directions:
-        delta_row, delta_col = directions[command] #Taking the value from the command and assigning to these variables
+        delta_row, delta_col = directions[command]
         new_row = pizza_boy_row + delta_row
         new_col = pizza_boy_col + delta_col
 
-    if 0 <= new_row < len(matrix) and 0 <= new_col < len(matrix[0]):
-            matrix[gambler_row][gambler_col] = '-'
-            gambler_row = new_row
-            gambler_col = new_col
-            current_position = matrix[gambler_row][gambler_col]
+        if 0 <= new_row < len(matrix) and 0 <= new_col < len(matrix[0]):
+            if matrix[new_row][new_col] == '*':
+                # If the new position is '*', the delivery boy stays in the current position
+                command = input()
+                continue
+            if (pizza_boy_row, pizza_boy_col) != start_position and matrix[pizza_boy_row][pizza_boy_col] != 'R':
+                matrix[pizza_boy_row][pizza_boy_col] = '.'
+            pizza_boy_row = new_row
+            pizza_boy_col = new_col
+            current_position = matrix[pizza_boy_row][pizza_boy_col]
+
+            if current_position == "P":
+                print("Pizza is collected. 10 minutes for delivery.")
+                matrix[pizza_boy_row][pizza_boy_col] = 'R'
+
+            if current_position == "A":
+                print("Pizza is delivered on time! Next order...")
+                matrix[pizza_boy_row][pizza_boy_col] = "P"
+                break
+        else:
+            print('The delivery is late. Order is canceled.')
+            matrix[start_position[0]][start_position[1]] = ' '
+            break
 
     command = input()
+
+for row in matrix:
+    print(''.join(row))
