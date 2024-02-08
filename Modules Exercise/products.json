@@ -1,0 +1,10 @@
+{
+    "Hoodie": {
+    "quantity": 10,
+    "image": "Modules Exercise/hoodie.jpg"
+    },
+    "Shirt": {
+        "quantity": 10,
+        "image": "Modules Exercise/hoodie.jpg"
+        }
+}
