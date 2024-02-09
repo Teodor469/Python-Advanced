@@ -13,18 +13,3 @@ def gather_credits(number_of_credits_needed, *args):
 
     credits_shortage = number_of_credits_needed - total_credits
     return f"You need to enroll in more courses! You have to gather {credits_shortage} credits more."
-
-
-print(gather_credits(
-
-60,
-
-("Basics", 27),
-
-("Fundamentals", 27),
-
-("Advanced", 30),
-
-("Web", 30)
-
-))
