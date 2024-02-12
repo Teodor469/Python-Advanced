@@ -28,7 +28,7 @@ while command != 'end':
         new_row = gambler_row + delta_row
         new_col = gambler_col + delta_col
 
-        if 0 <= new_row < len(board) and 0 <= new_col < len(board[0]): #if the index is valid
+        if 0 <= new_row < len(board) and 0 <= new_col < len(board[0]): #if the index is valid 
             board[gambler_row][gambler_col] = '-'
             gambler_row = new_row
             gambler_col = new_col
