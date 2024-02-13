@@ -27,4 +27,4 @@ result = movie_organizer(("The Godfather", "Drama"),
     ("The Pursuit of Happiness", "Drama"),
     ("The Hangover Part II", "Comedy"))
 
-print(result.strip())
+print(result)
