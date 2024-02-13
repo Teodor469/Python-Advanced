@@ -1,59 +1,61 @@
-rows, cols = [int(el) for el in input().split()]
+def is_in_scope(row_index, col_index, row_count, col_count):
+    return 0 <= row_index < row_count and 0 <= col_index < col_count
 
-matrix = []
-
-directions = {
+direction_mapper = {
     "up":(-1, 0),
     "down":(1, 0),
     "left":(0, -1),
     "right":(0, 1),
 }
 
-pizza_boy_row = 0
-pizza_boy_col = 0
-start_position = None
+n, m = [int(el) for el in input().split()]
 
-for i in range(rows):
-    rows_data = list(input())
-    matrix.append(rows_data)
-    if 'B' in rows_data:
-        pizza_boy_row = i
-        pizza_boy_col = rows_data.index('B')
-        start_position = (pizza_boy_row, pizza_boy_col)
+matrix = []
+initial_position = None
 
-command = input()
+for row_index in range(n):
+    data = list(input())
+
+    if "B" in data:
+        col_index = data.index("B")
+        initial_position = (row_index, col_index)
+    matrix.append(data)
+
+
+current_position = initial_position
 
 while True:
-    if command in directions:
-        delta_row, delta_col = directions[command]
-        new_row = pizza_boy_row + delta_row
-        new_col = pizza_boy_col + delta_col
+    direction = input()
 
-        if 0 <= new_row < len(matrix) and 0 <= new_col < len(matrix[0]):
-            if matrix[new_row][new_col] == '*':
-                # If the new position is '*', the delivery boy stays in the current position
-                command = input()
-                continue
-            if (pizza_boy_row, pizza_boy_col) != start_position and matrix[pizza_boy_row][pizza_boy_col] != 'R':
-                matrix[pizza_boy_row][pizza_boy_col] = '.'
-            pizza_boy_row = new_row
-            pizza_boy_col = new_col
-            current_position = matrix[pizza_boy_row][pizza_boy_col]
+    current_row_index, current_col_index = current_position
+    row_movement, col_movement = direction_mapper[direction]
+    desired_row = current_row_index + row_movement
+    desired_col = current_col_index + col_movement
 
-            if current_position == "P":
-                print("Pizza is collected. 10 minutes for delivery.")
-                matrix[pizza_boy_row][pizza_boy_col] = 'R'
+    if not is_in_scope(desired_row, desired_col, n, m):
+        matrix[initial_position[0]][initial_position[1]] = " "
+        print("The delivery is late. Order is canceled.")
+        break
 
-            if current_position == "A":
-                print("Pizza is delivered on time! Next order...")
-                matrix[pizza_boy_row][pizza_boy_col] = "P"
-                break
-        else:
-            print('The delivery is late. Order is canceled.')
-            matrix[start_position[0]][start_position[1]] = ' '
-            break
+    symbol = matrix[desired_row][desired_col]
 
-    command = input()
+    if matrix[desired_row][desired_col] == "*":
+        continue
+
+    current_position = [desired_row, desired_col]
+
+    if symbol == "P":
+        print("Pizza is collected. 10 minutes for delivery.")
+        matrix[desired_row][desired_col] = "R"
+
+    elif symbol == "A":
+        matrix[desired_row][desired_col] = "P"
+        print("Pizza is delivered on time! Next order...")
+        break
+
+    elif symbol == "-":
+        matrix[desired_row][desired_col] = "."
+
 
 for row in matrix:
     print(''.join(row))
