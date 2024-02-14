@@ -1,24 +1,20 @@
-from collections import defaultdict
+def movie_organizer(*args):
+    film_genres = {}
 
-def movie_organizer(*movies):
-    genre_movies = defaultdict(list)
-    
-    for movie_name, genre in movies:
-        genre_movies[genre].append(movie_name)
+    for movie_name, genre in args:
+        if genre not in film_genres:
+            film_genres[genre] = []
+        film_genres[genre].append(movie_name)
 
-    for genre, movies in genre_movies.items():
-        genre_movies[genre] = sorted(movies)
+    sorted_film_genres = sorted(film_genres.items(), key=lambda x: (-len(x[1]), x[0]))
 
-    sorted_genres = sorted(genre_movies.items(), key=lambda x: (-len(x[1]), x[0]))
-
-    output = ""
-    for genre, movies in sorted_genres:
-        output += f"{genre} - {len(movies)}\n"
-        for movie in movies:
-            output += f"* {movie}\n"
-        output += "\n"
-
-    return output.strip()
+    result = ''
+    for genre, movie_name in sorted_film_genres:
+        sorted_movies = sorted(movie_name)
+        result += f"{genre} - {len(sorted_movies)}\n"
+        for name in sorted_movies:
+            result += f"* {name}\n"
+    return result.strip()
 
 
 result = movie_organizer(("The Godfather", "Drama"),
