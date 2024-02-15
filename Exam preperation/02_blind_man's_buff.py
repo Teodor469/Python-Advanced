@@ -1,3 +1,60 @@
+# n, m = map(int, input().split())
+
+# playground = []
+# my_position = []
+
+# directions = {
+#     "up":(-1, 0),
+#     "down":(1, 0),
+#     "left":(0, -1),
+#     "right":(0, 1),
+# }
+
+# count_touched_opponents = 0
+# moves_made = 0
+
+# for row_index in range(n):
+#     data = input().split()
+#     playground.append(data)
+    
+#     if "B" in data:
+#         my_position = [row_index, data.index("B")]
+#         playground[my_position[0]][my_position[1]] = "-"
+
+# direction = input()
+
+# while direction != "Finish":
+#     new_row, new_col = my_position[0] + directions[direction][0], my_position[1] + directions[direction][1]
+
+#     if not (0 <= new_row < n and 0 <= new_col < m):
+#         direction = input()
+#         continue
+
+#     symbol = playground[new_row][new_col]
+
+#     if symbol == "O":
+#         direction = input()
+#         continue
+
+#     elif symbol == "P":
+#         playground[my_position[0]][my_position[1]] = "-"
+#         my_position = [new_row, new_col]
+#         playground[new_row][new_col] = "-"
+#         count_touched_opponents += 1
+#         moves_made += 1
+#     elif symbol == "-":
+#         playground[my_position[0]][my_position[1]] = "-"
+#         my_position = [new_row, new_col]
+#         moves_made += 1
+
+#     if count_touched_opponents == 3:
+#         break
+
+#     direction = input()
+
+# print("Game over!")
+# print(f"Touched opponents: {count_touched_opponents} Moves made: {moves_made}")
+
 n, m = map(int, input().split())
 
 playground = []
@@ -15,12 +72,14 @@ count_touched_oppononents = 0
 moves_made = 0
 
 for row_index in range(n):
-    data = [char for char in input() if char != ' ']
-
+    data = input().split()
+    playground.append(data)
+    
     if "B" in data:
         player_row = row_index
         player_col = data.index("B")
-    playground.append(data)
+    
+    
 
 direction = input()
 
